@@ -1,80 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Corazón con movimiento</title>
-  <style>
-    html, body {
-      margin: 0;
-      height: 100%;
-      background-color: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Flor luminosa</title>
 
-    canvas {
-      display: block;
-    }
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
-    #nombre {
-      position: absolute;
-      top: 20px;
-      width: 100%;
-      text-align: center;
-      color: white;
-      font-size: 1.5em;
-      font-family: system-ui, Arial, sans-serif;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div id="nombre"></div>
-  <canvas id="corazon"></canvas>
+  <canvas id="fx"></canvas>
 
-  <script>
-    // Pide el nombre
-    const nombre = prompt("¿Cómo te llamas?");
-    document.getElementById("nombre").innerText = nombre ? `❤️ Para ti, ${nombre} ❤️` : "❤️ Corazón ❤️";
+  <div class="overlay" id="ask">
+    <div class="card">
+      <h1>🌙 Una flor para ti</h1>
+      <p>Escribe tu nombre para ver la bella flor.</p>
+      <div class="field">
+        <input id="who" type="text" placeholder="Tu nombre..." autofocus />
+        <button id="go">Ver</button>
+      </div>
+      <div class="hint">Consejo: súbele el brillo a tu pantalla 🌌</div>
+    </div>
+  </div>
 
-    const canvas = document.getElementById("corazon");
-    const ctx = canvas.getContext("2d");
+  <div class="badge" id="badge">
+    <div class="hi" id="title">Para ti</div>
+  </div>
 
-    // Ajusta el tamaño del canvas a toda la pantalla
-    function ajustar() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener("resize", ajustar);
-    ajustar();
-
-    // Función para dibujar el corazón
-    function dibujarCorazon(x, y, size) {
-      ctx.beginPath();
-      for (let t = 0; t < Math.PI * 2; t += 0.01) {
-        const xPos = 16 * Math.pow(Math.sin(t), 3);
-        const yPos = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
-        ctx.lineTo(x + xPos * size, y - yPos * size);
-      }
-      ctx.closePath();
-      ctx.fillStyle = "red";
-      ctx.fill();
-    }
-
-    // Animación del latido
-    let t = 0;
-    function animar() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const scale = 10 + 1.5 * Math.sin(t);
-      const x = canvas.width / 2;
-      const y = canvas.height / 2 + 40;
-      dibujarCorazon(x, y, scale);
-      t += 0.08;
-      requestAnimationFrame(animar);
-    }
-    animar();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
